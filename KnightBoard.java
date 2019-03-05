@@ -2,9 +2,11 @@ import java.util.*;
 import java.io.*;
 
 private int[][] board;
+private int[][] moves;
 public class KnightBoard {
 
 	public KnightBoard(int r, int c) throws IllegalArgumentException {
+		moves = new int[][]{{2,1}, {1,2}, {2,-1}, {-2,1}, {-2,-1}, {-1,2}, {1,-2}, {-1,-2}};
 		if (r <= 0 || c <= 0) {
 			throw new IllegalArgumentException("BREEBLER ALERT");
 		}
@@ -63,6 +65,8 @@ public class KnightBoard {
 		}
 		return solveHelp(firstRow, firstCol, 1);
 	}
+
+	
 
 
 
