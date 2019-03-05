@@ -18,7 +18,7 @@ public class KnightBoard {
 
 	public String toString() {
 		String s = "";
-		for (int i = 0; i < board.length; < i++) {
+		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
 				if (board[i][j] % 10 == board[i][j]) {
 					if (board[i][j] == 0) {
@@ -49,5 +49,21 @@ public class KnightBoard {
 		}
 		return s;
 	}
+
+	public boolean solve(int firstRow, int firstCol) throws IllegalStateException,IllegalArgumentException {
+		if (firstRow < 0 || firstCol < 0) {
+			throw new IllegalArgumentException("Invalid board index");
+		}
+		for (int i = 0; i < board.length; i++) {
+			for (int j = 0; j < board[i].length; j++) {
+				if (board[i][j] != 0) {
+					throw new IllegalStateException("Invalid board state. Clear it or suffer.")
+				}
+			}
+		}
+		return solveHelp(firstRow, firstCol, 1);
+	}
+
+
 
 }
