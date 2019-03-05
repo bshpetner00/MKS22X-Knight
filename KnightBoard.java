@@ -75,6 +75,7 @@ public class KnightBoard {
 			return false;
 		}
 		else if (knights == board.length * board[r].length) {
+			board[r][c] = knights;
 			return true;
 		}
 		else {
@@ -91,6 +92,10 @@ public class KnightBoard {
 		return false;
 	}	
 
-
+	public static void main(String[] args) {
+		KnightBoard b = new KnightBoard(6,6);
+		b.solve(0,0);
+		System.out.println(b);
+	}
 
 }
