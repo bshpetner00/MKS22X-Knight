@@ -1,10 +1,9 @@
 import java.util.*;
 import java.io.*;
 
-private int[][] board;
-private int[][] moves;
 public class KnightBoard {
-
+	private int[][] board;
+	private int[][] moves;
 	public KnightBoard(int r, int c) throws IllegalArgumentException {
 		moves = new int[][]{{2,1}, {1,2}, {2,-1}, {-2,1}, {-2,-1}, {-1,2}, {1,-2}, {-1,-2}};
 		if (r <= 0 || c <= 0) {
@@ -59,14 +58,38 @@ public class KnightBoard {
 		for (int i = 0; i < board.length; i++) {
 			for (int j = 0; j < board[i].length; j++) {
 				if (board[i][j] != 0) {
-					throw new IllegalStateException("Invalid board state. Clear it or suffer.")
+					throw new IllegalStateException("Invalid board state. Clear it or suffer.");
 				}
 			}
 		}
 		return solveHelp(firstRow, firstCol, 1);
 	}
 
-	
+	public boolean solveHelp(int r, int c, int knights) {
+		int arr = 0;
+		int see = 0;
+		if (r >= board.length || c >= board[0].length || r < 0 || c < 0) {
+			return false;
+		}
+		else if (board[r][c] != 0){
+			return false;
+		}
+		else if (knights == board.length * board[r].length) {
+			return true;
+		}
+		else {
+			for (int[]move: moves) {
+				board[r][c] = knights;
+				arr = r + move[0];
+				see = c + move[1];
+				if (solveHelp(arr,see,knights+1)) {
+					return true;
+				}
+				board[r][c] = 0;
+			}
+		}
+		return false;
+	}	
 
 
 
