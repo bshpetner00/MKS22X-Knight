@@ -17,6 +17,14 @@ public class KnightBoard {
 		}
 	}
 
+	private void clear() {
+		for (int r = 0; r < board.length; r++) {
+			for (int c = 0; c < board.length; c++) {
+				board[r][c] = 0;
+			}
+		}
+	}
+
 	public String toString() {
 		String s = "";
 		for (int i = 0; i < board.length; i++) {
@@ -62,7 +70,14 @@ public class KnightBoard {
 				}
 			}
 		}
-		return solveHelp(firstRow, firstCol, 1);
+		if (solveHelp(firstRow, firstCol, 1)) {
+			clear();
+			return true;
+		}
+		else {
+			clear();
+			return false;
+		}
 	}
 
 	public boolean solveHelp(int r, int c, int knights) {
@@ -97,7 +112,7 @@ public class KnightBoard {
 			throw new IllegalArgumentException("Invalid board index");
 		}
 		for (int i = 0; i < board.length; i++) {
-			for (int j = 0; j < board[i].length; j++) {
+			for (int j = 0; j < board[0].length; j++) {
 				if (board[i][j] != 0) {
 					throw new IllegalStateException("Invalid board state. Clear it or suffer.");
 				}
@@ -107,26 +122,20 @@ public class KnightBoard {
 	}
 
 	public int countHelp(int r, int c, int knights) {
-		int arr = 0;
-		int see = 0;
 		int count = 0;
-		if (r >= board.length || c >= board[0].length || r < 0 || c < 0) {
+		if (r >= board.length || c >= board[0].length || r < 0 || c < 0 || board[r][c] != 0){
 			return 0;
 		}
-		else if (board[r][c] != 0){
-			return 0;
-		}
-		else if (knights == board.length * board[r].length) {
-			board[r][c] = knights;
+		if (knights == board.length * board[0].length){
 			return 1;
 		}
-			for (int[]move: moves) {
-				board[r][c] = knights;
-				arr = r + move[0];
-				see = c + move[1];
-				count += countHelp(arr,see,knights+1);
-				board[r][c] = 0;
-			}
+		for (int[]move: moves) {
+			board[r][c] = knights;
+			int arr = r + move[0];
+			int see = c + move[1];
+			count += countHelp(arr,see,knights+1);
+			board[r][c] = 0;
+		}
 		return count;
 	}
 
