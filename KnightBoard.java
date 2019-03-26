@@ -71,7 +71,6 @@ public class KnightBoard {
 			}
 		}
 		if (solveHelp(firstRow, firstCol, 1)) {
-			clear();
 			return true;
 		}
 		else {
